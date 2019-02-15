@@ -1,0 +1,20 @@
+---
+- name: Add Jenkins apt repository key.
+  apt_key:
+    url: "https://pkg.jenkins.io/debian-stable/jenkins.io.key"
+    state: present
+
+- name: Add repository
+  apt_repository:
+    repo: "deb https://pkg.jenkins.io/debian binary/"
+    state: present
+    update_cache: true
+
+- name: install jenkins
+  apt: state=present name=jenkins update_cache=yes
+
+- name: changing permision plugins directory
+  command: chown jenkins:jenkins -R /var/lib/jenkins/plugins
+
+- name: start and enable jenkins
+  service: name=jenkins state=restarted enabled=yes

@@ -1,0 +1,2 @@
+- name: install openjdk-8-jre
+  apt: state=present name=openjdk-8-jre update_cache=yes
